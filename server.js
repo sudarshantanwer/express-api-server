@@ -1,17 +1,27 @@
 const express = require('express');
+const parser = require("body-parser")
 
 // Create Express app
 const app = express();
 const port = 3001;
+app.use(parser.urlencoded({extended: true}))
 
 app.use((req, res, next)=>{
-     console.log("middleware one");
+     console.log(req.body);
      next();
 })
 
 app.use((req, res, next)=>{
      console.log("middleware two");
      next();
+})
+
+app.use("/about", (req, res, next)=>{
+    res.send('<h2>About</h2>');
+})
+
+app.use("/products", (req, res, next)=>{
+    res.send('<h2>Product list</h2>');
 })
 
 // Define a route
